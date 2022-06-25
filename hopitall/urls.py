@@ -13,4 +13,5 @@ urlpatterns = [
     path('login_sign/', views.login_sign, name="login_sign"),
     path('login_sign/authentification/<int:id>', views.authentification, name="authentification"),
     path('login_sign/authentification/profile/<int:id>', views.profile, name="profile"),
+    path('login_sign/authentification/profile/<int:id>/appointment/', views.appointment, name="appointment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

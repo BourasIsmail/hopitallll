@@ -1,6 +1,7 @@
 # Create your models here.
 from asyncio.windows_events import NULL
 from distutils.command.upload import upload
+from email import message
 from email.mime import image
 from enum import unique
 import hashlib
@@ -11,6 +12,13 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+
+class Formulaire(models.Model):
+    name = models.CharField(primary_key=True,max_length=200)
+    email = models.EmailField(max_length=200, null=True)
+    date = models.DateTimeField(max_length=200, null=True)
+    departement = models.CharField(max_length=200, null=True)
+    message = models.CharField(max_length=200, null=True)
 
 class UserManager(BaseUserManager):
 

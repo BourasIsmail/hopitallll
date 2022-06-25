@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Hashed_code, NewUser
+from .models import *
 
 
 class UserAdminConfig(UserAdmin):
@@ -27,4 +28,6 @@ class UserAdminConfig(UserAdmin):
 
 
 admin.site.register(NewUser, UserAdminConfig)
+admin.site.register(Formulaire)
+
 

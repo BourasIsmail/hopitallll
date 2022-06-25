@@ -1,13 +1,15 @@
+from cmath import e
 import email
 from email.mime import image
+from http.client import EXPECTATION_FAILED
 from multiprocessing import context
 from urllib.request import Request
+from warnings import catch_warnings
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from hopital.settings import BASE_DIR
-
-from hopitall.models import NewUser
+from hopitall.models import NewUser,Formulaire
 
 
 from .forms import CreateUserForm
@@ -31,8 +33,28 @@ def profile(request,id):
     isdocter=user.is_doctor
     img=user.img
     url=csp+"/mediafiles/"+str(img)
-    user={'username':username,'mail':mail,'fullname':fullname,'isdoctor':isdocter,'img':img}
+    user={'username':username,'mail':mail,'fullname':fullname,'isdoctor':isdocter,'img':img,'id':str(id)}
     return render(request, 'profile.html',{'user':user})
+
+def appointment(request,id):
+    msg=""
+    if request.method == 'POST':
+        try:
+            fullname = request.POST['fullname']
+            print({"alo":fullname})
+            email = request.POST['email']
+            date = request.POST['date']
+            departement =request.POST['departement']
+            message =request.POST['message']
+            f=Formulaire(name=fullname,email=email,date=date,departement=departement,message=message)
+            f.save()
+            if f:
+                msg="User created"
+            
+        except Exception as e:
+            print(e)
+
+    return render(request, 'appointment.html',{"msg":msg})
 
 def login_cam():
     print("test")
